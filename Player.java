@@ -1,15 +1,18 @@
 public class Player {
-    private int money = 50;
-    private int food = 20;
-    private int water = 20;
-    private int crew = 1;
-
+    private int money;
+    private int food;
+    private int water;
+    private int crew;
     private Ship ship;
     private Location location;
 
     public Player(Location start) {
-        this.location = start;
-        this.ship = new Ship();
+        money = 50;
+        food = 20;
+        water = 20;
+        crew = 1;
+        ship = new Ship();
+        location = start;
     }
 
     public void addMoney(int amount) {
@@ -20,24 +23,12 @@ public class Player {
         money -= amount;
     }
 
-    public int getMoney() {
-        return money;
-    }
-
-    public int getCrew() {
-        return crew;
-    }
-
-    public void recruitCrew() {
-        crew++;
-    }
-
     public void consumeFood(int amount) {
-        food -= amount;
+        food = Math.max(0, food - amount);
     }
 
     public void consumeWater(int amount) {
-        water -= amount;
+        water = Math.max(0, water - amount);
     }
 
     public void addFood(int amount) {
@@ -48,6 +39,38 @@ public class Player {
         water += amount;
     }
 
+    public void recruitCrew() {
+        crew++;
+    }
+
+    public void showStatus() {
+        System.out.println();
+        System.out.println("📊 PLAYER STATUS");
+        System.out.println("----------------------");
+        System.out.println("Money: $" + money);
+        System.out.println("Food: " + food);
+        System.out.println("Water: " + water);
+        System.out.println("Crew: " + crew);
+        System.out.println("Ship Level: " + ship.getLevel());
+        System.out.println("Location: " + location.getName());
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public int getFood() {
+        return food;
+    }
+
+    public int getWater() {
+        return water;
+    }
+
+    public int getCrew() {
+        return crew;
+    }
+
     public Ship getShip() {
         return ship;
     }
@@ -56,17 +79,7 @@ public class Player {
         return location;
     }
 
-    public void setLocation(Location loc) {
-        this.location = loc;
-    }
-
-    public void showStatus() {
-        System.out.println("📊 Status:");
-        System.out.println("Money: " + money);
-        System.out.println("Food: " + food);
-        System.out.println("Water: " + water);
-        System.out.println("Crew: " + crew);
-        System.out.println("Ship Level: " + ship.getLevel());
-        System.out.println("Location: " + location.getName());
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
